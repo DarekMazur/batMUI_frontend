@@ -6,7 +6,8 @@ export const theme = createTheme({
   palette: {
     mode: 'dark',
     background: {
-      default: '#0e0e18'
+      default: '#0e0e18',
+      paper: '#0e0e18'
     },
     text: {
       primary: '#dbdbdc',
@@ -24,6 +25,7 @@ export const theme = createTheme({
   },
   typography: {
     fontFamily: '"Montserrat Variable", sans-serif;',
+    fontSize: 16,
     h1: {
       fontFamily: '"Russo One", sans-serif;',
       fontSize: '2rem',
