@@ -1,12 +1,15 @@
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { theme } from './lib/theme.tsx';
+import Header from './components/Molecules/Header/Header.tsx';
+
 const App = () => {
   return (
-    <>
-      <h1>Lorem Ipsum</h1>
-      <p>
-        Dolor Sit Amet
-      </p>
-    </>
-  )
-}
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Header />
+      <p>Dolor Sit Amet</p>
+    </ThemeProvider>
+  );
+};
 
-export default App
+export default App;
