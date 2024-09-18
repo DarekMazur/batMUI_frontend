@@ -1,10 +1,16 @@
-import { Box, Button, TextField } from '@mui/material';
+import { Alert, Box, Button, Snackbar, TextField } from '@mui/material';
 import { styledButton, styledForm, styledInput } from './Form.styles.ts';
-import { ChangeEvent, MouseEvent, useContext } from 'react';
+import { ChangeEvent, MouseEvent, useContext, useState } from 'react';
 import { QuizContext } from '../../lib/AppProvides.tsx';
 
 const Form = () => {
   const { quizLevel, player, setQuizPlayer, setStartTime } = useContext(QuizContext);
+
+  const [isWarning, setIsWarning] = useState(false);
+
+  const handleClose = () => {
+    setIsWarning(false);
+  };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setQuizPlayer(e.target.value || null);
@@ -12,6 +18,11 @@ const Form = () => {
 
   const handleStart = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
+    if (!(player && quizLevel)) {
+      setIsWarning(true);
+      return;
+    }
 
     setStartTime(Date.now());
   };
@@ -33,6 +44,13 @@ const Form = () => {
       >
         Start
       </Button>
+      <Snackbar open={isWarning} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity='warning' variant='filled' sx={{ width: '100%' }}>
+          {quizLevel
+            ? 'Nie ma się czego wstydzić, podaj jakieś imię...'
+            : 'Wiem, że jesteś kozak i chcesz na hardzie, ale musisz nadal wybrać poziom'}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };
