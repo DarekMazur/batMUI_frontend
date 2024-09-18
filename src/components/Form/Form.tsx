@@ -2,9 +2,11 @@ import { Alert, Box, Button, Snackbar, TextField } from '@mui/material';
 import { styledButton, styledForm, styledInput } from './Form.styles.ts';
 import { ChangeEvent, MouseEvent, useContext, useState } from 'react';
 import { QuizContext } from '../../lib/AppProvides.tsx';
+import { useNavigate } from 'react-router-dom';
 
 const Form = () => {
   const { quizLevel, player, setQuizPlayer, setStartTime } = useContext(QuizContext);
+  const navigate = useNavigate();
 
   const [isWarning, setIsWarning] = useState(false);
 
@@ -25,6 +27,7 @@ const Form = () => {
     }
 
     setStartTime(Date.now());
+    navigate(`/quiz/${quizLevel.toLowerCase()}`);
   };
 
   return (
