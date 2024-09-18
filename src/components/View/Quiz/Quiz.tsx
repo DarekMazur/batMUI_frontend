@@ -1,4 +1,5 @@
 import {
+  Button,
   Card,
   CardContent,
   CardMedia,
@@ -11,11 +12,19 @@ import {
 import { useContext, useEffect, useState, MouseEvent } from 'react';
 import { QuizContext } from '../../../lib/AppProvides.tsx';
 import { db } from '../../../lib/data.ts';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { styledButton } from '../../Form/Form.styles.ts';
+import { theme } from '../../../lib/theme.tsx';
+
+const styledQuitButton = {
+  ...styledButton,
+  color: theme.palette.error.dark
+};
 
 const Quiz = () => {
   const { score, player, quizLevel, setResults } = useContext(QuizContext);
   const { quizId } = useParams();
+  const navigate = useNavigate();
 
   const [active, setActive] = useState(true);
   const [currentLevel, setCurrentLevel] = useState<string | undefined>();
@@ -77,6 +86,10 @@ const Quiz = () => {
       setCurrentQuestion(currentQuestion + 1);
       setActive(true);
     }
+  };
+
+  const handleQuit = () => {
+    navigate('/');
   };
 
   useEffect(() => {
@@ -143,6 +156,10 @@ const Quiz = () => {
           </Typography>
         </CardContent>
       </Card>
+
+      <Button sx={styledQuitButton} onClick={handleQuit}>
+        Przerwij
+      </Button>
     </Container>
   );
 };
