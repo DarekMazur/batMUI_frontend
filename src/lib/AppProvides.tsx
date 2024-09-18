@@ -15,7 +15,7 @@ interface IContextProps {
   setEndTime: (endTimeStamp: number) => void;
 }
 
-const initData: IContextProps = {
+export const initData: IContextProps = {
   quizLevel: null,
   setLevel: () => {},
   player: null,

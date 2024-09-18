@@ -4,13 +4,16 @@ import {
   CardContent,
   CardMedia,
   Container,
+  Dialog,
+  DialogActions,
+  DialogTitle,
   List,
   ListItemButton,
   ListItemText,
   Typography
 } from '@mui/material';
 import { useContext, useEffect, useState, MouseEvent } from 'react';
-import { QuizContext } from '../../../lib/AppProvides.tsx';
+import { initData, QuizContext } from '../../../lib/AppProvides.tsx';
 import { db } from '../../../lib/data.ts';
 import { useNavigate, useParams } from 'react-router-dom';
 import { styledButton } from '../../Form/Form.styles.ts';
@@ -22,13 +25,15 @@ const styledQuitButton = {
 };
 
 const Quiz = () => {
-  const { score, player, quizLevel, setResults } = useContext(QuizContext);
+  const { score, player, quizLevel, setResults, setStartTime, setLevel, setQuizPlayer } =
+    useContext(QuizContext);
   const { quizId } = useParams();
   const navigate = useNavigate();
 
   const [active, setActive] = useState(true);
   const [currentLevel, setCurrentLevel] = useState<string | undefined>();
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [modal, setModal] = useState<boolean>(false);
 
   const getCurrentLevel = () => {
     switch (quizId) {
@@ -89,6 +94,14 @@ const Quiz = () => {
   };
 
   const handleQuit = () => {
+    setModal(true);
+  };
+
+  const handleConfirmQuit = () => {
+    setResults(initData.score);
+    setQuizPlayer(initData.player);
+    setLevel(initData.quizLevel);
+    setStartTime(initData.start);
     navigate('/');
   };
 
@@ -160,6 +173,31 @@ const Quiz = () => {
       <Button sx={styledQuitButton} onClick={handleQuit}>
         Przerwij
       </Button>
+      <Dialog open={modal}>
+        <DialogTitle>Naprawdę się poddajesz?</DialogTitle>
+        <DialogActions>
+          <Button
+            variant='contained'
+            sx={{
+              bgcolor: theme.palette.warning.light,
+              color: theme.palette.error.dark,
+              fontFamily: '"Russo One", sans-serif;'
+            }}
+            onClick={handleConfirmQuit}
+          >
+            Rezygnuję
+          </Button>
+          <Button
+            variant='contained'
+            sx={{
+              fontFamily: '"Russo One", sans-serif;'
+            }}
+            onClick={() => setModal(false)}
+          >
+            Gram dalej
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 };
