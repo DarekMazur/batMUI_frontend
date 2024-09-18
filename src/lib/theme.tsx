@@ -31,7 +31,8 @@ export const theme = createTheme({
       paper: '#0e0e18'
     },
     backgroundColorLight: {
-      default: '#505c7c'
+      default: '#505c7c',
+      paper: '#282e3c'
     },
     text: {
       primary: '#dbdbdc',
@@ -44,6 +45,7 @@ export const theme = createTheme({
     },
     secondary: {
       main: '#c4b61d',
+      light: '#8d9195',
       contrastText: '#186c89'
     }
   },
@@ -61,6 +63,7 @@ export const theme = createTheme({
     },
     h3: {
       fontFamily: '"Russo One", sans-serif;',
+      fontSize: '1.5rem',
       lineHeight: '1.5'
     },
     h4: {
