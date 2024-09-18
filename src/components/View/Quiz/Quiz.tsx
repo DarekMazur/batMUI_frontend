@@ -173,13 +173,22 @@ const Quiz = () => {
       <Button sx={styledQuitButton} onClick={handleQuit}>
         Przerwij
       </Button>
-      <Dialog open={modal}>
-        <DialogTitle>Naprawdę się poddajesz?</DialogTitle>
+      <Dialog
+        open={modal}
+        fullWidth
+        PaperProps={{
+          sx: {
+            width: '50%',
+            height: 200,
+            display: 'flex',
+            justifyContent: 'center'
+          }
+        }}
+      >
+        <DialogTitle sx={{ textAlign: 'center' }}>Naprawdę się poddajesz?</DialogTitle>
         <DialogActions>
           <Button
-            variant='contained'
             sx={{
-              bgcolor: theme.palette.warning.light,
               color: theme.palette.error.dark,
               fontFamily: '"Russo One", sans-serif;'
             }}
@@ -188,7 +197,6 @@ const Quiz = () => {
             Rezygnuję
           </Button>
           <Button
-            variant='contained'
             sx={{
               fontFamily: '"Russo One", sans-serif;'
             }}
