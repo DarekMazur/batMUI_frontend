@@ -1,21 +1,28 @@
-import { Box, Button, Container, TextField, Typography } from '@mui/material';
-import { theme } from '../../../lib/theme.tsx';
+import { Box, Button, Container, Typography } from '@mui/material';
+import Form from '../../Form/Form.tsx';
+
+const styledContainer = {
+  width: '90%',
+  p: '1.5rem 0',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  '& p': {
+    textIndent: '1.5rem',
+    my: 2
+  }
+};
+
+const styledButton = {
+  fontFamily: '"Russo One", sans-serif;',
+  width: '10rem',
+  height: '3rem',
+  m: '1rem 1.2rem'
+};
 
 const HomeView = () => {
   return (
-    <Container
-      sx={{
-        width: '90%',
-        p: '1.5rem 0',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        '& p': {
-          textIndent: '1.5rem',
-          my: 2
-        }
-      }}
-    >
+    <Container sx={styledContainer}>
       <Typography variant={'h3'} component={'h2'}>
         Zmierz się z Batmanem!
       </Typography>
@@ -35,69 +42,19 @@ const HomeView = () => {
           znasz Zamaskowanego Krzyżowca!
         </Typography>
       </Box>
-      <Box
-        sx={{
-          form: {
-            m: '3rem 0',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            position: 'relative'
-          }
-        }}
-      >
-        <Box
-          sx={{
-            button: {
-              fontFamily: '"Russo One", sans-serif;',
-              width: '10rem',
-              height: '3rem',
-              m: '1rem 1.2rem'
-            }
-          }}
-        >
-          <Button variant='contained'>Łatwy</Button>
-          <Button variant='contained'>Normalny</Button>
-          <Button variant='contained'>Trudny</Button>
-        </Box>
-        <form>
-          <TextField
-            label={'Nick/Imię'}
-            variant='filled'
-            sx={{
-              backgroundColor: theme.palette.backgroundColorLight?.paper,
-              width: '30rem',
-              border: 'none',
-              fontSize: '1.5rem',
-              textAlign: 'center',
-              mb: '3rem',
-              label: {
-                color: theme.palette.secondary.light,
-                '&.Mui-focused': {
-                  color: theme.palette.secondary.light
-                }
-              },
-              '&.Mui-focused': {
-                label: { color: theme.palette.secondary.light }
-              }
-            }}
-          />
-          <Button
-            variant='contained'
-            type='submit'
-            sx={{
-              fontFamily: '"Russo One", sans-serif;',
-              width: '10rem',
-              height: '3rem',
-              m: '1rem 1.2rem',
-              color: theme.palette.text.secondary,
-              backgroundColor: theme.palette.text.primary,
-              alignSelf: 'self-end'
-            }}
-          >
-            Start
+      <Box>
+        <Box>
+          <Button variant='contained' sx={styledButton}>
+            Łatwy
           </Button>
-        </form>
+          <Button variant='contained' sx={styledButton}>
+            Normalny
+          </Button>
+          <Button variant='contained' sx={styledButton}>
+            Trudny
+          </Button>
+        </Box>
+        <Form />
       </Box>
     </Container>
   );
