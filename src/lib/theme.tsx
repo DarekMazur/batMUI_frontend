@@ -1,6 +1,27 @@
 import { createTheme } from '@mui/material';
+import { CSSProperties } from 'react';
 import '@fontsource/russo-one';
 import '@fontsource-variable/montserrat';
+import { TypographyOptions } from '@mui/material/styles/createTypography';
+
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    bat: true;
+  }
+}
+
+declare module '@mui/material/styles/createPalette' {
+  interface Palette {
+    backgroundColorLight?: Palette['background'];
+  }
+  interface PaletteOptions {
+    backgroundColorLight?: PaletteOptions['background'];
+  }
+}
+
+interface ExtendedTypographyOptions extends TypographyOptions {
+  bat: CSSProperties;
+}
 
 export const theme = createTheme({
   palette: {
@@ -8,6 +29,9 @@ export const theme = createTheme({
     background: {
       default: '#0e0e18',
       paper: '#0e0e18'
+    },
+    backgroundColorLight: {
+      default: '#505c7c'
     },
     text: {
       primary: '#dbdbdc',
@@ -50,6 +74,9 @@ export const theme = createTheme({
     h6: {
       fontFamily: '"Russo One", sans-serif;',
       lineHeight: '1.5'
+    },
+    bat: {
+      fontFamily: '"Russo One", sans-serif;'
     }
-  }
+  } as ExtendedTypographyOptions
 });

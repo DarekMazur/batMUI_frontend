@@ -7,8 +7,8 @@ const styledHeader = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  margin: '0',
-  padding: '1rem',
+  m: '0',
+  p: '1rem',
   height: '40vh',
   background: `url(${Hero}) no-repeat center center/cover`,
   '&::before': {
@@ -22,7 +22,7 @@ const styledHeader = {
     opacity: '0.7'
   },
   h1: {
-    margin: '0',
+    m: '0',
     zIndex: '1',
     color: theme.palette.text.primary
   }
