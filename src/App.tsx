@@ -7,10 +7,12 @@ import AppProvides from './lib/AppProvides.tsx';
 const App = () => {
   return (
     <AppProvides>
-      <CssBaseline />
-      <Header />
-      <HomeView />
-      <Footer />
+      <>
+        <CssBaseline />
+        <Header />
+        <HomeView />
+        <Footer />
+      </>
     </AppProvides>
   );
 };
