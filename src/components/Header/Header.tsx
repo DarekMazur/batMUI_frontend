@@ -1,6 +1,6 @@
 import { Paper, Typography } from '@mui/material';
-import Hero from '../../../assets/hero.jpg';
-import { theme } from '../../../lib/theme.tsx';
+import Hero from '../../assets/hero.jpg';
+import { theme } from '../../lib/theme.tsx';
 
 const styledHeader = {
   position: 'relative',

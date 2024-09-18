@@ -1,6 +1,6 @@
 import { Paper, Typography } from '@mui/material';
-import { theme } from '../../../lib/theme.tsx';
-import FooterCover from '../../../assets/footer.jpg';
+import { theme } from '../../lib/theme.tsx';
+import FooterCover from '../../assets/footer.jpg';
 
 const styledFooter = {
   p: '1.5rem 0',
