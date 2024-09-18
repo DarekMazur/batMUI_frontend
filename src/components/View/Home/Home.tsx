@@ -1,5 +1,6 @@
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import Form from '../../Form/Form.tsx';
+import SwitchLevelWrapper from '../../SwitchLevelWrapper/SwitchLevelWrapper.tsx';
 
 const styledContainer = {
   width: '90%',
@@ -11,13 +12,6 @@ const styledContainer = {
     textIndent: '1.5rem',
     my: 2
   }
-};
-
-const styledButton = {
-  fontFamily: '"Russo One", sans-serif;',
-  width: '10rem',
-  height: '3rem',
-  m: '1rem 1.2rem'
 };
 
 const HomeView = () => {
@@ -43,17 +37,7 @@ const HomeView = () => {
         </Typography>
       </Box>
       <Box>
-        <Box>
-          <Button variant='contained' sx={styledButton}>
-            Łatwy
-          </Button>
-          <Button variant='contained' sx={styledButton}>
-            Normalny
-          </Button>
-          <Button variant='contained' sx={styledButton}>
-            Trudny
-          </Button>
-        </Box>
+        <SwitchLevelWrapper />
         <Form />
       </Box>
     </Container>
