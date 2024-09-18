@@ -95,7 +95,7 @@ export const db = [
     check: 'Zastrzelił ich złodziej',
     isBonus: false,
     level: 'Easy',
-    img: 'https://res.cloudinary.com/ddyqnp7pp/image/upload/v1726515412/7_unpvrc.jpg'
+    img: 'https://res.cloudinary.com/ddyqnp7pp/image/upload/v1726515412/8_dhqvjt.jpg'
   },
   {
     id: faker.string.uuid(),

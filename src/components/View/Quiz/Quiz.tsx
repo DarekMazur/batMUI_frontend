@@ -136,8 +136,8 @@ const Quiz = () => {
         <CardContent>
           <Typography gutterBottom variant='h5' component='h3' align='center'>
             {currentQuestion !== 11
-              ? questionsList[currentQuestion].question.replace('&#39;', "'")
-              : bonusQuestion[0].question.replace('&#39;', "'")}
+              ? questionsList[currentQuestion].question.replaceAll('&#39;', "'")
+              : bonusQuestion[0].question.replaceAll('&#39;', "'")}
           </Typography>
           <Typography variant='body2' component='div'>
             <List sx={{ width: '100%' }} component='nav'>
@@ -157,10 +157,10 @@ const Quiz = () => {
                       currentQuestion !== 11
                         ? questionsList[currentQuestion][
                             `ans${option}` as 'ans1' | 'ans2' | 'ans3' | 'ans4'
-                          ].replace('&#39;', "'")
+                          ].replaceAll('&#39;', "'")
                         : bonusQuestion[0][
                             `ans${option}` as 'ans1' | 'ans2' | 'ans3' | 'ans4'
-                          ].replace('&#39;', "'")
+                          ].replaceAll('&#39;', "'")
                     }
                   />
                 </ListItemButton>
