@@ -13,6 +13,8 @@ interface IContextProps {
   end: number;
   setStartTime: (startTimeStamp: number) => void;
   setEndTime: (endTimeStamp: number) => void;
+  finishQuiz: (isFinish: boolean) => void;
+  endQuiz: boolean;
 }
 
 export const initData: IContextProps = {
@@ -25,7 +27,9 @@ export const initData: IContextProps = {
   start: 0,
   end: 0,
   setStartTime: () => {},
-  setEndTime: () => {}
+  setEndTime: () => {},
+  finishQuiz: () => {},
+  endQuiz: false
 };
 
 export const QuizContext = createContext(initData);
@@ -36,6 +40,7 @@ const AppProvides = ({ children }: { children: ReactElement }) => {
   const [score, setScore] = useState<number>(0);
   const [start, setStart] = useState<number>(0);
   const [end, setEnd] = useState<number>(0);
+  const [endQuiz, setEndQuiz] = useState<boolean>(false);
 
   const setLevel = (level: string | null) => {
     setQuizLevel(level);
@@ -57,6 +62,10 @@ const AppProvides = ({ children }: { children: ReactElement }) => {
     setEnd(endTimeStamp);
   };
 
+  const finishQuiz = (isFinish: boolean) => {
+    setEndQuiz(isFinish);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <QuizContext.Provider
@@ -70,7 +79,9 @@ const AppProvides = ({ children }: { children: ReactElement }) => {
           start,
           end,
           setStartTime,
-          setEndTime
+          setEndTime,
+          finishQuiz,
+          endQuiz
         }}
       >
         {children}
