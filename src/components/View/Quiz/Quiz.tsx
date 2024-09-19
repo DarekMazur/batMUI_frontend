@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { styledButton } from '../../Form/Form.styles.ts';
 import { theme } from '../../../lib/theme.tsx';
 import QuizItem from '../../QuizItem/QuizItem.tsx';
+import QuizResults from '../../QuizResults/QuizResults.tsx';
 
 const styledQuitButton = {
   ...styledButton,
@@ -12,8 +13,16 @@ const styledQuitButton = {
 };
 
 const Quiz = () => {
-  const { player, quizLevel, setResults, setStartTime, setLevel, setQuizPlayer } =
-    useContext(QuizContext);
+  const {
+    player,
+    quizLevel,
+    setResults,
+    setStartTime,
+    setLevel,
+    setQuizPlayer,
+    endQuiz,
+    finishQuiz
+  } = useContext(QuizContext);
   const { quizId } = useParams();
   const navigate = useNavigate();
 
@@ -45,6 +54,7 @@ const Quiz = () => {
     setQuizPlayer(initData.player);
     setLevel(initData.quizLevel);
     setStartTime(initData.start);
+    finishQuiz(initData.endQuiz);
     navigate('/');
   };
 
@@ -69,9 +79,9 @@ const Quiz = () => {
         Witaj, {player}!
       </Typography>
       <Typography component='p'>Grasz na poziomie {currentLevel ? currentLevel : null}</Typography>
-      <QuizItem />
-      <Button sx={styledQuitButton} onClick={handleQuit}>
-        Przerwij
+      {endQuiz ? <QuizResults /> : <QuizItem />}
+      <Button sx={styledQuitButton} onClick={endQuiz ? handleConfirmQuit : handleQuit}>
+        {endQuiz ? 'Zakończ' : 'Przerwij'}
       </Button>
       <Dialog
         open={modal}
