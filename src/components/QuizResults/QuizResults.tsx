@@ -3,6 +3,7 @@ import { useResults } from '../../lib/hooks/useResults.tsx';
 import { calculateFinalScore, calculateRank } from '../../lib/helpers.ts';
 import { useContext } from 'react';
 import { QuizContext } from '../../lib/AppProvides.tsx';
+import { theme } from '../../lib/theme.tsx';
 
 const QuizResults = () => {
   const { score, start, end, quizLevel } = useContext(QuizContext);
@@ -25,9 +26,16 @@ const QuizResults = () => {
       />
       <CardContent>
         <Typography gutterBottom variant='h5' component='h3' align='center'>
-          Zdobywasz {finalScore} punktów ({Math.round((score / 10) * 100)}%).
+          Zdobywasz{' '}
+          <Typography
+            variant='h5'
+            component='span'
+            sx={{ color: theme.palette.primary.contrastText }}
+          >
+            {finalScore} punktów
+          </Typography>{' '}
+          ({Math.round((score / 10) * 100)}%).
         </Typography>
-        <Typography variant='body2' component='div'></Typography>
         <Typography variant='body2' component='div'>
           {playerRank.rankDescription}
         </Typography>
