@@ -29,6 +29,22 @@ const Quiz = () => {
   const [currentLevel, setCurrentLevel] = useState<string | undefined>();
   const [modal, setModal] = useState<boolean>(false);
 
+  const levelNameColor = (level: string | null) => {
+    if (level === 'easy') {
+      return theme.palette.success.dark;
+    }
+
+    if (level === 'normal') {
+      return theme.palette.warning.dark;
+    }
+
+    if (level === 'hard') {
+      return theme.palette.error.dark;
+    }
+
+    return null;
+  };
+
   const getCurrentLevel = () => {
     switch (quizId) {
       case 'easy':
@@ -76,9 +92,22 @@ const Quiz = () => {
         BATQUIZ
       </Typography>
       <Typography variant='h3' component='p'>
-        Witaj, {player}!
+        Witaj,{' '}
+        <Typography
+          variant='h3'
+          component='span'
+          sx={{ color: theme.palette.primary.contrastText }}
+        >
+          {player}
+        </Typography>
+        !
       </Typography>
-      <Typography component='p'>Grasz na poziomie {currentLevel ? currentLevel : null}</Typography>
+      <Typography component='p'>
+        Grasz na poziomie{' '}
+        <Typography component='span' sx={{ color: levelNameColor(quizLevel) }}>
+          {currentLevel ? currentLevel : null}
+        </Typography>
+      </Typography>
       {endQuiz ? <QuizResults /> : <QuizItem />}
       <Button sx={styledQuitButton} onClick={endQuiz ? handleConfirmQuit : handleQuit}>
         {endQuiz ? 'Zakończ' : 'Przerwij'}
