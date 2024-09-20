@@ -54,7 +54,6 @@ const QuizResults = () => {
   }, []);
 
   useEffect(() => {
-    console.log(JSON.stringify(newPlayer));
     if (token) {
       fetch(`${import.meta.env.VITE_API_URL}/api/score`, {
         method: 'POST',

@@ -53,6 +53,7 @@ const QuizItem = () => {
   }, []);
 
   useEffect(() => {
+    console.log('here');
     if (currentQuestion === 9) {
       if (score === 10) {
         setCurrentQuestion('bonus');
