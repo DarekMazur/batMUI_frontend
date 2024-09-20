@@ -27,6 +27,19 @@ const QuizResults = () => {
     level: (quizLevel as string).charAt(0).toUpperCase() + (quizLevel as string).slice(1)
   };
 
+  const getCurrentLevel = () => {
+    switch (quizLevel) {
+      case 'easy':
+        return 'łatwym';
+      case 'normal':
+        return 'normalnym';
+      case 'hard':
+        return 'trudnym';
+      default:
+        break;
+    }
+  };
+
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/token`)
       .then((response) => {
@@ -78,7 +91,7 @@ const QuizResults = () => {
           >
             {finalScore} punktów
           </Typography>{' '}
-          ({Math.round((score / 10) * 100)}%).
+          ({Math.round((score / 10) * 100)}%) na poziomie {getCurrentLevel()}.
         </Typography>
         <Typography variant='body2' component='div'>
           {playerRank.rankDescription}
