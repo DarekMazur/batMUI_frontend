@@ -26,6 +26,12 @@ const Quiz = () => {
   const { quizId } = useParams();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!quizLevel || !player) {
+      navigate('/');
+    }
+  }, [quizLevel, player]);
+
   const [currentLevel, setCurrentLevel] = useState<string | undefined>();
   const [modal, setModal] = useState<boolean>(false);
 
