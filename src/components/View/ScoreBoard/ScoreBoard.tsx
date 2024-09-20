@@ -1,10 +1,9 @@
-import { Box, Container, Paper, styled, Tab, Tabs, Typography } from '@mui/material';
+import { Box, Container, styled, Tab, Tabs } from '@mui/material';
 import ResultTable from '../../ResultTable/ResultTable.tsx';
 import { SyntheticEvent, useEffect, useState } from 'react';
-import { theme } from '../../../lib/theme.tsx';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import LoadingMockup from '../../LoadingMockup/LoadingMockup.tsx';
 import { IPlayerProps, TabPanelProps } from '../../../lib/types.ts';
+import Error from '../../Error/Error.tsx';
 
 const StyledTab = styled(Tab)(({ theme }) => ({
   '&.Mui-selected': { color: theme.palette.primary.contrastText }
@@ -108,24 +107,7 @@ const ScoreBoard = () => {
           </Box>
         </Container>
       ) : (
-        <Container sx={{ m: 2 }}>
-          <Paper
-            sx={{
-              p: 5,
-              minHeight: '10rem',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: 4
-            }}
-          >
-            <Typography color={theme.palette.error.main}>
-              Nie można załadować wyników. Spróbuj ponownie później...
-            </Typography>
-            <ErrorOutlineIcon sx={{ color: theme.palette.error.main, fontSize: 100 }} />
-          </Paper>
-        </Container>
+        <Error>Nie można załadować wyników. Spróbuj ponownie później...</Error>
       )}
     </>
   );

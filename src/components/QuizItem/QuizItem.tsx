@@ -16,6 +16,7 @@ import { QuizContext } from '../../lib/AppProvides.tsx';
 import { useParams } from 'react-router-dom';
 import { theme } from '../../lib/theme.tsx';
 import { IQuestionTypes } from '../../lib/types.ts';
+import Error from '../Error/Error.tsx';
 
 const QuizItem = () => {
   const { score, setResults, setEndTime, finishQuiz } = useContext(QuizContext);
@@ -165,24 +166,7 @@ const QuizItem = () => {
           </CardContent>
         </Card>
       ) : (
-        <Container sx={{ m: 2 }}>
-          <Paper
-            sx={{
-              p: 5,
-              minHeight: '10rem',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: 4
-            }}
-          >
-            <Typography color={theme.palette.error.main}>
-              Nie można załadować quizu. Spróbuj ponownie później...
-            </Typography>
-            <ErrorOutlineIcon sx={{ color: theme.palette.error.main, fontSize: 100 }} />
-          </Paper>
-        </Container>
+        <Error>Nie można załadować quizu. Spróbuj ponownie później...</Error>
       )}
     </>
   );
