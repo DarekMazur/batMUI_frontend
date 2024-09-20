@@ -18,7 +18,10 @@ interface IPlayerProps {
   level: string;
 }
 
-const ResultTable: FC<{ playersList: IPlayerProps[] }> = ({ playersList }) => {
+const ResultTable: FC<{ playersList: IPlayerProps[]; isOpen?: boolean }> = ({
+  playersList,
+  isOpen
+}) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -59,7 +62,7 @@ const ResultTable: FC<{ playersList: IPlayerProps[] }> = ({ playersList }) => {
               <StyledTableCell align='right'>Gracz</StyledTableCell>
               <StyledTableCell align='right'>Wynik</StyledTableCell>
               <StyledTableCell align='right'>Czas</StyledTableCell>
-              <StyledTableCell align='right'>Poziom</StyledTableCell>
+              {isOpen ? <StyledTableCell align='right'>Poziom</StyledTableCell> : null}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -71,7 +74,9 @@ const ResultTable: FC<{ playersList: IPlayerProps[] }> = ({ playersList }) => {
                 <StyledTableCell align='right'>{player.username}</StyledTableCell>
                 <StyledTableCell align='right'>{player.score}</StyledTableCell>
                 <StyledTableCell align='right'>{player.time}</StyledTableCell>
-                <StyledTableCell align='right'>{translatedLevel(player.level)}</StyledTableCell>
+                {isOpen ? (
+                  <StyledTableCell align='right'>{translatedLevel(player.level)}</StyledTableCell>
+                ) : null}
               </StyledTableRow>
             ))}
           </TableBody>

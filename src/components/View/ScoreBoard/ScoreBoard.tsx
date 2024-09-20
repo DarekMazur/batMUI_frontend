@@ -1,4 +1,4 @@
-import { Box, Container, Tab, Tabs } from '@mui/material';
+import { Box, Container, styled, Tab, Tabs } from '@mui/material';
 import { generatePlayers } from '../../../lib/data.ts';
 import ResultTable from '../../ResultTable/ResultTable.tsx';
 import { ReactNode, SyntheticEvent, useState } from 'react';
@@ -8,6 +8,10 @@ interface TabPanelProps {
   index: number;
   value: number;
 }
+
+const StyledTab = styled(Tab)(({ theme }) => ({
+  '&.Mui-selected': { color: theme.palette.primary.contrastText }
+}));
 
 const ScoreBoard = () => {
   const players = generatePlayers().sort((a, b) => b.score - a.score);
@@ -32,14 +36,14 @@ const ScoreBoard = () => {
       <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={value} onChange={handleChange} aria-label='basic tabs example'>
-            <Tab label='Open' />
-            <Tab label='Łatwy' />
-            <Tab label='Normalny' />
-            <Tab label='Trudny' />
+            <StyledTab label='Open' />
+            <StyledTab label='Łatwy' />
+            <StyledTab label='Normalny' />
+            <StyledTab label='Trudny' />
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
-          <ResultTable playersList={players} />
+          <ResultTable playersList={players} isOpen />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
           <ResultTable playersList={players.filter((player) => player.level === 'Easy')} />
