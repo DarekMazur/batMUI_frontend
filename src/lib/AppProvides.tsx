@@ -1,6 +1,9 @@
-import { ThemeProvider } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import { theme } from './theme.tsx';
 import { createContext, ReactElement, useState } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import Footer from '../components/Footer/Footer.tsx';
+import Header from '../components/Header/Header.tsx';
 
 interface IContextProps {
   quizLevel: null | string;
@@ -84,7 +87,12 @@ const AppProvides = ({ children }: { children: ReactElement }) => {
           endQuiz
         }}
       >
-        {children}
+        <BrowserRouter>
+          <CssBaseline />
+          <Header />
+          {children}
+          <Footer />
+        </BrowserRouter>
       </QuizContext.Provider>
     </ThemeProvider>
   );
