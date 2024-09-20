@@ -15,19 +15,7 @@ import { MouseEvent, useContext, useEffect, useState } from 'react';
 import { QuizContext } from '../../lib/AppProvides.tsx';
 import { useParams } from 'react-router-dom';
 import { theme } from '../../lib/theme.tsx';
-
-interface IDataTypes {
-  id: string;
-  question: string;
-  ans1: string;
-  ans2: string;
-  ans3: string;
-  ans4: string;
-  check: string;
-  isBonus: boolean;
-  level: string;
-  img: string;
-}
+import { IQuestionTypes } from '../../lib/types.ts';
 
 const QuizItem = () => {
   const { score, setResults, setEndTime, finishQuiz } = useContext(QuizContext);
@@ -38,7 +26,7 @@ const QuizItem = () => {
   const [checkResults, setCheckResults] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
-  const [data, setData] = useState<IDataTypes[]>([]);
+  const [data, setData] = useState<IQuestionTypes[]>([]);
 
   const questionsList =
     data &&

@@ -4,21 +4,7 @@ import { createContext, ReactElement, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Footer from '../components/Footer/Footer.tsx';
 import Header from '../components/Header/Header.tsx';
-
-interface IContextProps {
-  quizLevel: null | string;
-  setLevel: (level: string | null) => void;
-  player: null | string;
-  setQuizPlayer: (playerName: string | null) => void;
-  score: number;
-  setResults: (results: number) => void;
-  start: number;
-  end: number;
-  setStartTime: (startTimeStamp: number) => void;
-  setEndTime: (endTimeStamp: number) => void;
-  finishQuiz: (isFinish: boolean) => void;
-  endQuiz: boolean;
-}
+import { IContextProps } from './types.ts';
 
 export const initData: IContextProps = {
   quizLevel: null,

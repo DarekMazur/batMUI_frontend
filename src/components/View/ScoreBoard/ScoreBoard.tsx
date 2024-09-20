@@ -1,23 +1,10 @@
 import { Box, Container, Paper, styled, Tab, Tabs, Typography } from '@mui/material';
 import ResultTable from '../../ResultTable/ResultTable.tsx';
-import { ReactNode, SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { theme } from '../../../lib/theme.tsx';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import LoadingMockup from '../../LoadingMockup/LoadingMockup.tsx';
-
-interface TabPanelProps {
-  children?: ReactNode;
-  index: number;
-  value: number;
-}
-
-interface IPlayerProps {
-  id: string;
-  username: string;
-  score: number;
-  time: number;
-  level: string;
-}
+import { IPlayerProps, TabPanelProps } from '../../../lib/types.ts';
 
 const StyledTab = styled(Tab)(({ theme }) => ({
   '&.Mui-selected': { color: theme.palette.primary.contrastText }
