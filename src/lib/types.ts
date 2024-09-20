@@ -6,12 +6,15 @@ export interface TabPanelProps {
   value: number;
 }
 
-export interface IPlayerProps {
-  id: string;
+export interface INewPlayerProps {
   username: string;
   score: number;
   time: number;
   level: string;
+}
+
+export interface IPlayerProps extends INewPlayerProps {
+  id: string;
 }
 
 export interface IQuestionTypes {
