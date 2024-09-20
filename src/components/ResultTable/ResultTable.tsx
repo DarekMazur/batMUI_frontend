@@ -1,36 +1,16 @@
-import {
-  Paper,
-  styled,
-  Table,
-  TableBody,
-  TableCell,
-  tableCellClasses,
-  TableContainer,
-  TableHead,
-  TableRow
-} from '@mui/material';
+import { Paper, Table, TableBody, TableContainer, TableHead, TableRow } from '@mui/material';
+import { FC } from 'react';
+import { StyledTableCell, StyledTableRow } from './ResultTable.style.ts';
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14
-  }
-}));
+interface IPlayerProps {
+  id: string;
+  username: string;
+  score: number;
+  time: number;
+  level: string;
+}
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-    color: theme.palette.common.white
-  },
-  '&:last-child td, &:last-child th': {
-    border: 0
-  }
-}));
-
-const ResultTable = ({ playersList }) => {
+const ResultTable: FC<{ playersList: IPlayerProps[] }> = ({ playersList }) => {
   const translatedLevel = (level: string | null) => {
     switch (level) {
       case 'Easy':
