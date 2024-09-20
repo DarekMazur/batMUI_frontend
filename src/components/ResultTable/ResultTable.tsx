@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import { ChangeEvent, FC, useMemo, useState } from 'react';
 import { StyledTableCell, StyledTableRow } from './ResultTable.style.ts';
+import { timeFormat } from '../../lib/helpers.ts';
 
 interface IPlayerProps {
   id: string;
@@ -73,7 +74,7 @@ const ResultTable: FC<{ playersList: IPlayerProps[]; isOpen?: boolean }> = ({
                 </StyledTableCell>
                 <StyledTableCell align='right'>{player.username}</StyledTableCell>
                 <StyledTableCell align='right'>{player.score}</StyledTableCell>
-                <StyledTableCell align='right'>{player.time}</StyledTableCell>
+                <StyledTableCell align='right'>{timeFormat(player.time)}</StyledTableCell>
                 {isOpen ? (
                   <StyledTableCell align='right'>{translatedLevel(player.level)}</StyledTableCell>
                 ) : null}
