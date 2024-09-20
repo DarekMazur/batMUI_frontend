@@ -11,14 +11,7 @@ import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
 import { ChangeEvent, FC, useMemo, useState } from 'react';
 import { StyledTableCell, StyledTableRow } from './ResultTable.style.ts';
 import { timeFormat } from '../../lib/helpers.ts';
-
-interface IPlayerProps {
-  id: string;
-  username: string;
-  score: number;
-  time: number;
-  level: string;
-}
+import { IPlayerProps } from '../../lib/types.ts';
 
 const ResultTable: FC<{ playersList: IPlayerProps[]; isOpen?: boolean }> = ({
   playersList,

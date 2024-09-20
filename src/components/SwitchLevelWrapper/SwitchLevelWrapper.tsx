@@ -8,7 +8,7 @@ const styledButton = {
   width: '10rem',
   height: '3rem',
   m: '1rem 1.2rem',
-  '&.active': {
+  '&.activeLevel': {
     backgroundColor: theme.palette.secondary.main,
     color: theme.palette.secondary.contrastText
   }
@@ -27,13 +27,13 @@ const SwitchLevelWrapper = () => {
     const target = e.target as HTMLButtonElement;
     document.querySelectorAll('.level').forEach((el) => {
       if (el.classList === target.classList) {
-        el.classList.toggle('active');
+        el.classList.toggle('activeLevel');
       } else {
-        el.classList.remove('active');
+        el.classList.remove('activeLevel');
       }
     });
 
-    setLevel(document.querySelector('.active')?.id || null);
+    setLevel(document.querySelector('.activeLevel')?.id || null);
   };
 
   return (
