@@ -80,7 +80,7 @@ const QuizItem = () => {
     }
   } while (answers.length < 4);
 
-  const handleChoseAnswer = (e: MouseEvent<HTMLButtonElement>): void => {
+  const handleChoseAnswer = (e: MouseEvent<HTMLDivElement>): void => {
     const event = e.target as HTMLButtonElement;
     setActive(false);
 
@@ -139,7 +139,7 @@ const QuizItem = () => {
                       <ListItemButton
                         component='div'
                         disabled={!active}
-                        onClick={handleChoseAnswer}
+                        onClick={(e: MouseEvent<HTMLDivElement>) => handleChoseAnswer(e)}
                         key={
                           currentQuestion !== 'bonus'
                             ? questionsList[currentQuestion].id + option
