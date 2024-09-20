@@ -1,7 +1,9 @@
-import { Box, Container, styled, Tab, Tabs } from '@mui/material';
-import { generatePlayers } from '../../../lib/data.ts';
+import { Box, Container, Paper, styled, Tab, Tabs, Typography } from '@mui/material';
 import ResultTable from '../../ResultTable/ResultTable.tsx';
-import { ReactNode, SyntheticEvent, useState } from 'react';
+import { ReactNode, SyntheticEvent, useEffect, useState } from 'react';
+import { theme } from '../../../lib/theme.tsx';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import LoadingMockup from '../../LoadingMockup/LoadingMockup.tsx';
 
 interface TabPanelProps {
   children?: ReactNode;
@@ -9,13 +11,41 @@ interface TabPanelProps {
   value: number;
 }
 
+interface IPlayerProps {
+  id: string;
+  username: string;
+  score: number;
+  time: number;
+  level: string;
+}
+
 const StyledTab = styled(Tab)(({ theme }) => ({
   '&.Mui-selected': { color: theme.palette.primary.contrastText }
 }));
 
 const ScoreBoard = () => {
-  const players = generatePlayers().sort((a, b) => b.score - a.score);
   const [value, setValue] = useState(0);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [data, setData] = useState<IPlayerProps[]>([]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(`${import.meta.env.VITE_API_URL}/api/score`)
+      .then((response) => {
+        if (response && response.status !== 200) {
+          setIsError(true);
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        setData(data);
+        setIsLoading(false);
+      });
+  }, []);
+
+  const players = data.sort((a, b) => b.score - a.score);
 
   const sortedPlayers = players.sort((a, b) => {
     if (a.score < b.score) {
@@ -42,30 +72,75 @@ const ScoreBoard = () => {
   }
 
   return (
-    <Container sx={{ my: 5 }} maxWidth='md'>
-      <Box sx={{ width: '100%' }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={value} onChange={handleChange} aria-label='basic tabs example'>
-            <StyledTab label='Open' />
-            <StyledTab label='Łatwy' />
-            <StyledTab label='Normalny' />
-            <StyledTab label='Trudny' />
-          </Tabs>
-        </Box>
-        <CustomTabPanel value={value} index={0}>
-          <ResultTable playersList={sortedPlayers} isOpen />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          <ResultTable playersList={sortedPlayers.filter((player) => player.level === 'Easy')} />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
-          <ResultTable playersList={sortedPlayers.filter((player) => player.level === 'Normal')} />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={3}>
-          <ResultTable playersList={sortedPlayers.filter((player) => player.level === 'Hard')} />
-        </CustomTabPanel>
-      </Box>
-    </Container>
+    <>
+      {!isError && data ? (
+        <Container sx={{ my: 5 }} maxWidth='md'>
+          <Box sx={{ width: '100%' }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <Tabs value={value} onChange={handleChange} aria-label='basic tabs example'>
+                <StyledTab label='Open' />
+                <StyledTab label='Łatwy' />
+                <StyledTab label='Normalny' />
+                <StyledTab label='Trudny' />
+              </Tabs>
+            </Box>
+            <CustomTabPanel value={value} index={0}>
+              {isLoading ? (
+                <LoadingMockup isOpen />
+              ) : (
+                <ResultTable playersList={sortedPlayers} isOpen />
+              )}
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={1}>
+              {isLoading ? (
+                <LoadingMockup />
+              ) : (
+                <ResultTable
+                  playersList={sortedPlayers.filter((player) => player.level === 'Easy')}
+                />
+              )}
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={2}>
+              {isLoading ? (
+                <LoadingMockup />
+              ) : (
+                <ResultTable
+                  playersList={sortedPlayers.filter((player) => player.level === 'Normal')}
+                />
+              )}
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={3}>
+              {isLoading ? (
+                <LoadingMockup />
+              ) : (
+                <ResultTable
+                  playersList={sortedPlayers.filter((player) => player.level === 'Hard')}
+                />
+              )}
+            </CustomTabPanel>
+          </Box>
+        </Container>
+      ) : (
+        <Container sx={{ m: 2 }}>
+          <Paper
+            sx={{
+              p: 5,
+              minHeight: '10rem',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: 4
+            }}
+          >
+            <Typography color={theme.palette.error.main}>
+              Nie można załadować wyników. Spróbuj ponownie później...
+            </Typography>
+            <ErrorOutlineIcon sx={{ color: theme.palette.error.main, fontSize: 100 }} />
+          </Paper>
+        </Container>
+      )}
+    </>
   );
 };
 
