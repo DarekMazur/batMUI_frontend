@@ -91,23 +91,27 @@ const Quiz = () => {
       <Typography variant='h3' component='h2'>
         BATQUIZ
       </Typography>
-      <Typography variant='h3' component='p'>
-        Witaj,{' '}
-        <Typography
-          variant='h3'
-          component='span'
-          sx={{ color: theme.palette.primary.contrastText }}
-        >
-          {player}
-        </Typography>
-        !
-      </Typography>
-      <Typography component='p'>
-        Grasz na poziomie{' '}
-        <Typography component='span' sx={{ color: levelNameColor(quizLevel) }}>
-          {currentLevel ? currentLevel : null}
-        </Typography>
-      </Typography>
+      {endQuiz ? null : (
+        <>
+          <Typography variant='h3' component='p'>
+            Witaj,{' '}
+            <Typography
+              variant='h3'
+              component='span'
+              sx={{ color: theme.palette.primary.contrastText }}
+            >
+              {player}
+            </Typography>
+            !
+          </Typography>
+          <Typography component='p'>
+            Grasz na poziomie{' '}
+            <Typography component='span' sx={{ color: levelNameColor(quizLevel) }}>
+              {currentLevel ? currentLevel : null}
+            </Typography>
+          </Typography>
+        </>
+      )}
       {endQuiz ? <QuizResults /> : <QuizItem />}
       <Button sx={styledQuitButton} onClick={endQuiz ? handleConfirmQuit : handleQuit}>
         {endQuiz ? 'Zakończ' : 'Przerwij'}

@@ -9,7 +9,6 @@ import { INewPlayerProps } from '../../lib/types.ts';
 const QuizResults = () => {
   const { score, start, end, quizLevel, player } = useContext(QuizContext);
   const playerRank = useResults(calculateRank(score));
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
   const [token, setToken] = useState<string>('');
 
@@ -29,7 +28,6 @@ const QuizResults = () => {
   };
 
   useEffect(() => {
-    setIsLoading(true);
     fetch(`${import.meta.env.VITE_API_URL}/api/token`)
       .then((response) => {
         if (response && response.status !== 200) {
@@ -39,7 +37,6 @@ const QuizResults = () => {
       })
       .then((data) => {
         setToken(data);
-        setIsLoading(false);
       });
   }, []);
 
