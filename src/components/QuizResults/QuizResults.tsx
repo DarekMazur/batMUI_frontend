@@ -59,13 +59,11 @@ const QuizResults = () => {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(newPlayer)
-      })
-        .then((response) => {
-          if (response && response.status !== 200) {
-            setIsError(true);
-          }
-        })
-        .then((data) => console.log(data));
+      }).then((response) => {
+        if (response && response.status !== 200) {
+          setIsError(true);
+        }
+      });
     }
   }, [token]);
 
@@ -79,6 +77,7 @@ const QuizResults = () => {
         sx={{ height: 500 }}
         image={playerRank.rankImage as string}
         title='quiz results cover'
+        component='img'
       />
       <CardContent>
         <Typography gutterBottom variant='h5' component='h3' align='center'>
