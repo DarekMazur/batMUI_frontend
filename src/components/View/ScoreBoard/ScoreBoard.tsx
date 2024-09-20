@@ -17,6 +17,16 @@ const ScoreBoard = () => {
   const players = generatePlayers().sort((a, b) => b.score - a.score);
   const [value, setValue] = useState(0);
 
+  const sortedPlayers = players.sort((a, b) => {
+    if (a.score < b.score) {
+      return 1;
+    } else if (a.score > b.score) {
+      return -1;
+    }
+
+    return a.time - b.time;
+  });
+
   const handleChange = (_e: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
@@ -43,16 +53,16 @@ const ScoreBoard = () => {
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
-          <ResultTable playersList={players} isOpen />
+          <ResultTable playersList={sortedPlayers} isOpen />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          <ResultTable playersList={players.filter((player) => player.level === 'Easy')} />
+          <ResultTable playersList={sortedPlayers.filter((player) => player.level === 'Easy')} />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          <ResultTable playersList={players.filter((player) => player.level === 'Normal')} />
+          <ResultTable playersList={sortedPlayers.filter((player) => player.level === 'Normal')} />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={3}>
-          <ResultTable playersList={players.filter((player) => player.level === 'Hard')} />
+          <ResultTable playersList={sortedPlayers.filter((player) => player.level === 'Hard')} />
         </CustomTabPanel>
       </Box>
     </Container>
