@@ -407,3 +407,22 @@ export const db = [
     img: 'https://res.cloudinary.com/ddyqnp7pp/image/upload/v1726515465/bonus_up8ivf.jpg'
   }
 ];
+
+const levels = ['Easy', 'Normal', 'Hard'];
+
+export const generatePlayers = () => {
+  const hallOfFame = [];
+  for (let i = 0; i < 100; ++i) {
+    const player = {
+      id: faker.string.uuid(),
+      username: faker.internet.userName(),
+      score: faker.number.int({ min: 0, max: 100 }),
+      level: levels[faker.number.int({ min: 0, max: 2 })],
+      time: faker.number.int({ min: 15000, max: 600000 })
+    };
+
+    hallOfFame.push(player);
+  }
+
+  return hallOfFame;
+};

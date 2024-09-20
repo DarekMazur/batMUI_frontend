@@ -1,19 +1,17 @@
-import { CssBaseline } from '@mui/material';
-import Header from './components/Header/Header.tsx';
-import Footer from './components/Footer/Footer.tsx';
 import AppProvides from './lib/AppProvides.tsx';
-import { RouterProvider } from 'react-router-dom';
-import router from './router/router.tsx';
+import { Route, Routes } from 'react-router-dom';
+import HomeView from './components/View/Home/Home.tsx';
+import Quiz from './components/View/Quiz/Quiz.tsx';
+import ScoreBoard from './components/View/ScoreBoard/ScoreBoard.tsx';
 
 const App = () => {
   return (
     <AppProvides>
-      <>
-        <CssBaseline />
-        <Header />
-        <RouterProvider router={router} />
-        <Footer />
-      </>
+      <Routes>
+        <Route path='/' element={<HomeView />} />
+        <Route path='quiz/:quizId' element={<Quiz />} />
+        <Route path='board' element={<ScoreBoard />} />
+      </Routes>
     </AppProvides>
   );
 };
