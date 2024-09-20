@@ -2,15 +2,21 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Container,
   List,
   ListItemButton,
   ListItemText,
+  Paper,
+  Skeleton,
   Typography
 } from '@mui/material';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { MouseEvent, useContext, useEffect, useState } from 'react';
 import { QuizContext } from '../../lib/AppProvides.tsx';
-import { db } from '../../lib/data.ts';
 import { useParams } from 'react-router-dom';
+import { theme } from '../../lib/theme.tsx';
+import { IQuestionTypes } from '../../lib/types.ts';
+import Error from '../Error/Error.tsx';
 
 const QuizItem = () => {
   const { score, setResults, setEndTime, finishQuiz } = useContext(QuizContext);
@@ -19,14 +25,32 @@ const QuizItem = () => {
   const [active, setActive] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState<number | 'bonus'>(0);
   const [checkResults, setCheckResults] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [data, setData] = useState<IQuestionTypes[]>([]);
 
-  const questionsList = db.filter(
-    (question) => question.level?.toLowerCase() === quizId && !question.isBonus
-  );
+  const questionsList =
+    data &&
+    data.filter((question) => question.level?.toLowerCase() === quizId && !question.isBonus);
 
-  const bonusQuestion = db.filter(
-    (question) => question.level?.toLowerCase() === quizId && question.isBonus
-  );
+  const bonusQuestion =
+    data && data.filter((question) => question.level?.toLowerCase() === quizId && question.isBonus);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(`${import.meta.env.VITE_API_URL}/api/questions`)
+      .then((response) => {
+        if (response && response.status !== 200) {
+          setIsError(true);
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        setData(data);
+        setIsLoading(false);
+      });
+  }, []);
 
   useEffect(() => {
     if (currentQuestion === 9) {
@@ -77,50 +101,74 @@ const QuizItem = () => {
   };
 
   return (
-    <Card sx={{ width: 500, my: 2 }}>
-      <CardMedia
-        sx={{ height: 140 }}
-        image={
-          currentQuestion !== 'bonus' ? questionsList[currentQuestion].img : bonusQuestion[0].img
-        }
-        title='quiz question cover'
-      />
-      <CardContent>
-        <Typography gutterBottom variant='h5' component='h3' align='center'>
-          {currentQuestion !== 'bonus'
-            ? questionsList[currentQuestion].question.replaceAll('&#39;', "'")
-            : bonusQuestion[0].question.replaceAll('&#39;', "'")}
-        </Typography>
-        <Typography variant='body2' component='div'>
-          <List sx={{ width: '100%' }} component='nav'>
-            {answers.map((option) => (
-              <ListItemButton
-                component='div'
-                disabled={!active}
-                onClick={handleChoseAnswer}
-                key={
-                  currentQuestion !== 'bonus'
-                    ? questionsList[currentQuestion].id + option
-                    : bonusQuestion[0].id + option
-                }
-              >
-                <ListItemText
-                  primary={
-                    currentQuestion !== 'bonus'
-                      ? questionsList[currentQuestion][
-                          `ans${option}` as 'ans1' | 'ans2' | 'ans3' | 'ans4'
-                        ].replaceAll('&#39;', "'")
-                      : bonusQuestion[0][
-                          `ans${option}` as 'ans1' | 'ans2' | 'ans3' | 'ans4'
-                        ].replaceAll('&#39;', "'")
-                  }
-                />
-              </ListItemButton>
-            ))}
-          </List>
-        </Typography>
-      </CardContent>
-    </Card>
+    <>
+      {!isError && data ? (
+        <Card sx={{ width: 500, my: 2 }}>
+          {isLoading ? (
+            <Skeleton variant='rectangular' width={500} height={200} />
+          ) : (
+            <CardMedia
+              sx={{ height: 200 }}
+              image={
+                currentQuestion !== 'bonus'
+                  ? questionsList[currentQuestion].img
+                  : bonusQuestion[0].img
+              }
+              title='quiz question cover'
+            />
+          )}
+          <CardContent>
+            {isLoading ? (
+              <>
+                <Skeleton />
+                <Skeleton width='60%' />
+                <Skeleton width='60%' />
+                <Skeleton width='60%' />
+                <Skeleton width='60%' />
+              </>
+            ) : (
+              <>
+                <Typography gutterBottom variant='h5' component='h3' align='center'>
+                  {currentQuestion !== 'bonus'
+                    ? questionsList[currentQuestion].question.replaceAll('&#39;', "'")
+                    : bonusQuestion[0].question.replaceAll('&#39;', "'")}
+                </Typography>
+                <Typography variant='body2' component='div'>
+                  <List sx={{ width: '100%' }} component='nav'>
+                    {answers.map((option) => (
+                      <ListItemButton
+                        component='div'
+                        disabled={!active}
+                        onClick={handleChoseAnswer}
+                        key={
+                          currentQuestion !== 'bonus'
+                            ? questionsList[currentQuestion].id + option
+                            : bonusQuestion[0].id + option
+                        }
+                      >
+                        <ListItemText
+                          primary={
+                            currentQuestion !== 'bonus'
+                              ? questionsList[currentQuestion][
+                                  `ans${option}` as 'ans1' | 'ans2' | 'ans3' | 'ans4'
+                                ].replaceAll('&#39;', "'")
+                              : bonusQuestion[0][
+                                  `ans${option}` as 'ans1' | 'ans2' | 'ans3' | 'ans4'
+                                ].replaceAll('&#39;', "'")
+                          }
+                        />
+                      </ListItemButton>
+                    ))}
+                  </List>
+                </Typography>
+              </>
+            )}
+          </CardContent>
+        </Card>
+      ) : (
+        <Error>Nie można załadować quizu. Spróbuj ponownie później...</Error>
+      )}
+    </>
   );
 };
 

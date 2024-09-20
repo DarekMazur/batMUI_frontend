@@ -5,14 +5,7 @@ import NormalImg from '../../assets/ranks/normal.jpg';
 import AdvancedImg from '../../assets/ranks/advanced.jpg';
 import PerfectImg from '../../assets/ranks/perfect.jpg';
 import WayneImg from '../../assets/ranks/wayne.jpg';
-
-type IRankName = 'noob' | 'amateur' | 'normal' | 'advanced' | 'perfect' | 'wayne';
-
-interface IRankTypes {
-  rankName: null | IRankName;
-  rankImage: null | string;
-  rankDescription: string;
-}
+import { IRankName, IRankTypes } from '../types.ts';
 
 export const useResults = (score: number) => {
   const initRank: IRankTypes = {
