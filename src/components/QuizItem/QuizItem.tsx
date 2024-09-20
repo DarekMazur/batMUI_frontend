@@ -2,19 +2,15 @@ import {
   Card,
   CardContent,
   CardMedia,
-  Container,
   List,
   ListItemButton,
   ListItemText,
-  Paper,
   Skeleton,
   Typography
 } from '@mui/material';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { MouseEvent, useContext, useEffect, useState } from 'react';
 import { QuizContext } from '../../lib/AppProvides.tsx';
 import { useParams } from 'react-router-dom';
-import { theme } from '../../lib/theme.tsx';
 import { IQuestionTypes } from '../../lib/types.ts';
 import Error from '../Error/Error.tsx';
 
@@ -37,19 +33,23 @@ const QuizItem = () => {
     data && data.filter((question) => question.level?.toLowerCase() === quizId && question.isBonus);
 
   useEffect(() => {
-    setIsLoading(true);
-    fetch(`${import.meta.env.VITE_API_URL}/api/questions`)
-      .then((response) => {
-        if (response && response.status !== 200) {
-          setIsError(true);
-        }
-
-        return response.json();
-      })
-      .then((data) => {
-        setData(data);
-        setIsLoading(false);
-      });
+    try {
+      setIsLoading(true);
+      fetch(`${import.meta.env.VITE_API_URL}/api/questions`)
+        .then((response) => {
+          if (response && response.status !== 200) {
+            setIsError(true);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setData(data);
+          setIsLoading(false);
+        });
+    } catch (err) {
+      setIsError(true);
+      console.log(err);
+    }
   }, []);
 
   useEffect(() => {
