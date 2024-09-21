@@ -35,7 +35,7 @@ To be honest, BatQuiz was my first “real” application and was sentimental to
 
     To install application navigate to app's directory and use npm command
 
-    ```shell
+    ```bash
     cd app-main-dir/
     npm install
     ```
@@ -44,7 +44,7 @@ To be honest, BatQuiz was my first “real” application and was sentimental to
 
     You can run app in developer mode by using command
 
-    ```shell
+    ```bash
     npm run dev
     ```
 
@@ -69,3 +69,7 @@ To be honest, BatQuiz was my first “real” application and was sentimental to
     VITE_API_URL=http://localhost:3000
    ```
    
+6. Bonus
+
+    If you're interested how backend looks you can check it <a href="https://github.com/DarekMazur/batMUI_backend" 
+  target="_blank">here</a>.
