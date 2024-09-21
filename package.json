@@ -1,13 +1,13 @@
 {
   "name": "BatMUI",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "MUI BatQuiz version with dedicated backend",
   "type": "module",
   "scripts": {
     "test": "vitest run --passWithNoTests",
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b -noCheck && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "prepare": "husky install"

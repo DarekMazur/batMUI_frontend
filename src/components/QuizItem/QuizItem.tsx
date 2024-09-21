@@ -13,6 +13,7 @@ import { QuizContext } from '../../lib/AppProvides.tsx';
 import { useParams } from 'react-router-dom';
 import { IQuestionTypes } from '../../lib/types.ts';
 import Error from '../Error/Error.tsx';
+import { randomizeList } from '../../lib/helpers.ts';
 
 const QuizItem = () => {
   const { score, setResults, setEndTime, finishQuiz } = useContext(QuizContext);
@@ -43,7 +44,7 @@ const QuizItem = () => {
           return response.json();
         })
         .then((data) => {
-          setData(data);
+          setData(randomizeList(data, data.length));
           setIsLoading(false);
         });
     } catch (err) {
@@ -80,7 +81,7 @@ const QuizItem = () => {
     }
   } while (answers.length < 4);
 
-  const handleChoseAnswer = (e: MouseEvent<HTMLButtonElement>): void => {
+  const handleChoseAnswer = (e: MouseEvent<HTMLDivElement>): void => {
     const event = e.target as HTMLButtonElement;
     setActive(false);
 
@@ -135,11 +136,11 @@ const QuizItem = () => {
                 </Typography>
                 <Typography variant='body2' component='div'>
                   <List sx={{ width: '100%' }} component='nav'>
-                    {answers.map((option) => (
+                    {randomizeList(['ans1', 'ans2', 'ans3', 'ans4'], 4).map((option) => (
                       <ListItemButton
                         component='div'
                         disabled={!active}
-                        onClick={handleChoseAnswer}
+                        onClick={(e: MouseEvent<HTMLDivElement>) => handleChoseAnswer(e)}
                         key={
                           currentQuestion !== 'bonus'
                             ? questionsList[currentQuestion].id + option
@@ -150,13 +151,24 @@ const QuizItem = () => {
                           primary={
                             currentQuestion !== 'bonus'
                               ? questionsList[currentQuestion][
-                                  `ans${option}` as 'ans1' | 'ans2' | 'ans3' | 'ans4'
+                                  option as 'ans1' | 'ans2' | 'ans3' | 'ans4'
                                 ].replaceAll('&#39;', "'")
                               : bonusQuestion[0][
-                                  `ans${option}` as 'ans1' | 'ans2' | 'ans3' | 'ans4'
+                                  option as 'ans1' | 'ans2' | 'ans3' | 'ans4'
                                 ].replaceAll('&#39;', "'")
                           }
                         />
+                        {/*<ListItemText*/}
+                        {/*  primary={*/}
+                        {/*    currentQuestion !== 'bonus'*/}
+                        {/*      ? questionsList[currentQuestion][*/}
+                        {/*          `ans${option}` as 'ans1' | 'ans2' | 'ans3' | 'ans4'*/}
+                        {/*        ].replaceAll('&#39;', "'")*/}
+                        {/*      : bonusQuestion[0][*/}
+                        {/*          `ans${option}` as 'ans1' | 'ans2' | 'ans3' | 'ans4'*/}
+                        {/*        ].replaceAll('&#39;', "'")*/}
+                        {/*  }*/}
+                        {/*/>*/}
                       </ListItemButton>
                     ))}
                   </List>
