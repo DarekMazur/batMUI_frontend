@@ -158,17 +158,6 @@ const QuizItem = () => {
                                 ].replaceAll('&#39;', "'")
                           }
                         />
-                        {/*<ListItemText*/}
-                        {/*  primary={*/}
-                        {/*    currentQuestion !== 'bonus'*/}
-                        {/*      ? questionsList[currentQuestion][*/}
-                        {/*          `ans${option}` as 'ans1' | 'ans2' | 'ans3' | 'ans4'*/}
-                        {/*        ].replaceAll('&#39;', "'")*/}
-                        {/*      : bonusQuestion[0][*/}
-                        {/*          `ans${option}` as 'ans1' | 'ans2' | 'ans3' | 'ans4'*/}
-                        {/*        ].replaceAll('&#39;', "'")*/}
-                        {/*  }*/}
-                        {/*/>*/}
                       </ListItemButton>
                     ))}
                   </List>
