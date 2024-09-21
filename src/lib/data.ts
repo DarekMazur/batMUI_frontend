@@ -143,6 +143,7 @@ export const db = [
     ans4: 'Harvey Bullock',
     check: 'Harvey Bullock',
     isBonus: false,
+    level: 'Normal',
     img: 'https://res.cloudinary.com/ddyqnp7pp/image/upload/v1726515490/2_ks6cq4.jpg'
   },
   {

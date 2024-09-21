@@ -42,3 +42,19 @@ export const timeFormat = (time: number) => {
 
   return `${minutes >= 10 ? minutes : '0' + minutes}:${seconds >= 10 ? seconds : '0' + seconds}:${milliseconds >= 100 ? milliseconds : milliseconds >= 10 ? '0' + milliseconds : '00' + milliseconds}ms`;
 };
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const randomizeList = (list: Array<any>, limit: number) => {
+  const randomized: any[] = [];
+
+  do {
+    const random = Math.floor(Math.random() * limit);
+
+    if (!randomized.includes(list[random])) {
+      randomized.push(list[random]);
+    }
+  } while (randomized.length < limit);
+
+  return randomized;
+};
+/* eslint-enable @typescript-eslint/no-explicit-any */
