@@ -86,8 +86,9 @@ const QuizItem = () => {
     setActive(false);
 
     if (
-      event.textContent === questionsList[currentQuestion as number]?.check ||
-      event.textContent === bonusQuestion[0].check
+      event.textContent ===
+        questionsList[currentQuestion as number]?.check.replaceAll('&#39;', "'") ||
+      event.textContent === bonusQuestion[0].check.replaceAll('&#39;', "'")
     ) {
       setResults(score + 1);
     }
