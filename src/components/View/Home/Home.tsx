@@ -1,6 +1,7 @@
 import { Box, Container, Typography } from '@mui/material';
 import Form from '../../Form/Form.tsx';
 import SwitchLevelWrapper from '../../SwitchLevelWrapper/SwitchLevelWrapper.tsx';
+import { MAX_COUNT } from '../../../lib/vars.ts';
 
 const styledContainer = {
   width: '90%',
@@ -32,8 +33,8 @@ const HomeView = () => {
           przygotowaną celę.
         </Typography>
         <Typography>
-          Przed Tobą 10 pytań. Czas rozruszać szare komórki i odpowiedzieć na pytanie - Jak dobrze
-          znasz Zamaskowanego Krzyżowca!
+          Przed Tobą {MAX_COUNT} pytań. Czas rozruszać szare komórki i odpowiedzieć na pytanie - Jak
+          dobrze znasz Zamaskowanego Krzyżowca!
         </Typography>
       </Box>
       <Box>
