@@ -15,6 +15,7 @@ import { IQuestionTypes } from '../../lib/types.ts';
 import Error from '../Error/Error.tsx';
 import { randomizeList } from '../../lib/helpers.ts';
 import { MAX_COUNT } from '../../lib/vars.ts';
+import { theme } from '../../lib/theme.tsx';
 
 const QuizItem = () => {
   const { score, setResults, setEndTime, finishQuiz } = useContext(QuizContext);
@@ -119,7 +120,13 @@ const QuizItem = () => {
   return (
     <>
       {!isError ? (
-        <Card sx={{ width: 500, my: 2 }}>
+        <Card
+          sx={{
+            [theme.breakpoints.down('md')]: { width: '90vw' },
+            [theme.breakpoints.up('md')]: { width: 500 },
+            my: 2
+          }}
+        >
           {isLoading ? (
             <Skeleton variant='rectangular' width={500} height={200} />
           ) : (

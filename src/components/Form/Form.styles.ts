@@ -20,7 +20,12 @@ export const styledButton = {
 
 export const styledInput = {
   backgroundColor: theme.palette.backgroundColorLight?.paper,
-  width: '30rem',
+  [theme.breakpoints.up('sm')]: {
+    width: '30rem'
+  },
+  [theme.breakpoints.down('sm')]: {
+    width: '80vw'
+  },
   border: 'none',
   fontSize: '1.5rem',
   mb: '3rem',

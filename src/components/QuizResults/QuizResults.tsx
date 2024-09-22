@@ -73,7 +73,13 @@ const QuizResults = () => {
   };
 
   return (
-    <Card sx={{ width: 500, my: 2 }}>
+    <Card
+      sx={{
+        [theme.breakpoints.down('md')]: { width: '90vw' },
+        [theme.breakpoints.up('md')]: { width: 500 },
+        my: 2
+      }}
+    >
       <CardMedia
         sx={{ height: 500 }}
         image={playerRank.rankImage as string}
