@@ -5,9 +5,19 @@ import { QuizContext } from '../../lib/AppProvides.tsx';
 
 const styledButton = {
   fontFamily: '"Russo One", sans-serif;',
-  width: '10rem',
+
+  [theme.breakpoints.up('sm')]: {
+    width: '10rem',
+    m: '1rem 1.2rem'
+  },
+  [theme.breakpoints.down('sm')]: {
+    m: '1rem 0.2rem',
+    fontSize: '0.7rem'
+  },
+  [theme.breakpoints.down('md')]: {
+    width: '20vw'
+  },
   height: '3rem',
-  m: '1rem 1.2rem',
   '&.activeLevel': {
     backgroundColor: theme.palette.secondary.main,
     color: theme.palette.secondary.contrastText
@@ -37,7 +47,7 @@ const SwitchLevelWrapper = () => {
   };
 
   return (
-    <Box>
+    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
       <Button
         component={'button'}
         variant='contained'

@@ -63,7 +63,13 @@ const ScoreBoard = () => {
         <Container sx={{ my: 5 }} maxWidth='md'>
           <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <Tabs value={value} onChange={handleChange} aria-label='basic tabs example'>
+              <Tabs
+                value={value}
+                variant={'scrollable'}
+                scrollButtons
+                allowScrollButtonsMobile
+                onChange={handleChange}
+              >
                 <StyledTab label='Open' />
                 <StyledTab label='Łatwy' />
                 <StyledTab label='Normalny' />

@@ -81,5 +81,8 @@ export const theme = createTheme({
     bat: {
       fontFamily: '"Russo One", sans-serif;'
     }
-  } as ExtendedTypographyOptions
+  } as ExtendedTypographyOptions,
+  breakpoints: {
+    sm: 500
+  }
 });

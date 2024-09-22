@@ -137,7 +137,12 @@ const Quiz = () => {
         fullWidth
         PaperProps={{
           sx: {
-            width: '50%',
+            [theme.breakpoints.down('md')]: {
+              width: '90%'
+            },
+            [theme.breakpoints.up('md')]: {
+              width: '50%'
+            },
             height: 200,
             display: 'flex',
             justifyContent: 'center'
@@ -148,7 +153,7 @@ const Quiz = () => {
         <DialogActions>
           <Button
             sx={{
-              color: theme.palette.error.dark,
+              color: theme.palette.error.main,
               fontFamily: '"Russo One", sans-serif;'
             }}
             onClick={handleConfirmQuit}
@@ -157,7 +162,8 @@ const Quiz = () => {
           </Button>
           <Button
             sx={{
-              fontFamily: '"Russo One", sans-serif;'
+              fontFamily: '"Russo One", sans-serif;',
+              color: theme.palette.text.primary
             }}
             onClick={() => setModal(false)}
           >
