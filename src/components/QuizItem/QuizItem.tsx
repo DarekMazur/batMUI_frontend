@@ -86,8 +86,9 @@ const QuizItem = () => {
     setActive(false);
 
     if (
-      event.textContent === questionsList[currentQuestion as number]?.check ||
-      event.textContent === bonusQuestion[0].check
+      event.textContent ===
+        questionsList[currentQuestion as number]?.check.replaceAll('&#39;', "'") ||
+      event.textContent === bonusQuestion[0].check.replaceAll('&#39;', "'")
     ) {
       setResults(score + 1);
     }
@@ -158,17 +159,6 @@ const QuizItem = () => {
                                 ].replaceAll('&#39;', "'")
                           }
                         />
-                        {/*<ListItemText*/}
-                        {/*  primary={*/}
-                        {/*    currentQuestion !== 'bonus'*/}
-                        {/*      ? questionsList[currentQuestion][*/}
-                        {/*          `ans${option}` as 'ans1' | 'ans2' | 'ans3' | 'ans4'*/}
-                        {/*        ].replaceAll('&#39;', "'")*/}
-                        {/*      : bonusQuestion[0][*/}
-                        {/*          `ans${option}` as 'ans1' | 'ans2' | 'ans3' | 'ans4'*/}
-                        {/*        ].replaceAll('&#39;', "'")*/}
-                        {/*  }*/}
-                        {/*/>*/}
                       </ListItemButton>
                     ))}
                   </List>

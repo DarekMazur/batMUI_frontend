@@ -9,7 +9,7 @@ export const calculateFinalScore = (
   timeMS: number,
   level: 'easy' | 'normal' | 'hard'
 ) => {
-  const timePerQuestion = ((10 - (score > 10 ? 10 : score)) * 60000 + timeMS) / 10;
+  const timePerQuestion = ((10 - (score >= 10 ? 10 : score)) * 60000 + timeMS) / 10;
 
   let levelParam = 1;
 
@@ -28,9 +28,9 @@ export const calculateFinalScore = (
       break;
   }
 
-  const scoreRaw = Math.log(timePerQuestion * levelParam);
+  const scoreRaw = score / Math.log(timePerQuestion);
 
-  return Math.round(scoreRaw * score);
+  return Math.round(scoreRaw * levelParam * 100);
 };
 
 export const timeFormat = (time: number) => {
