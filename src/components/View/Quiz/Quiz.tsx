@@ -67,16 +67,26 @@ const Quiz = () => {
     }
   };
 
-  const handleQuit = () => {
-    setModal(true);
-  };
-
-  const handleConfirmQuit = () => {
+  const clearStore = () => {
     setResults(initData.score);
     setQuizPlayer(initData.player);
     setLevel(initData.quizLevel);
     setStartTime(initData.start);
     finishQuiz(initData.endQuiz);
+  };
+
+  const handleQuit = () => {
+    if (endQuiz) {
+      console.log('here');
+      clearStore();
+      navigate('/board');
+      return;
+    }
+    setModal(true);
+  };
+
+  const handleConfirmQuit = () => {
+    clearStore();
     navigate('/');
   };
 
@@ -119,7 +129,7 @@ const Quiz = () => {
         </>
       )}
       {endQuiz ? <QuizResults /> : <QuizItem />}
-      <Button sx={styledQuitButton} onClick={endQuiz ? handleConfirmQuit : handleQuit}>
+      <Button sx={styledQuitButton} onClick={handleQuit}>
         {endQuiz ? 'Zakończ' : 'Przerwij'}
       </Button>
       <Dialog
