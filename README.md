@@ -10,7 +10,7 @@
 
 ## :ballot_box_with_check: About app
 
-BatQiuz 3.0 is... well... the third version of the BatQiuz application.
+BatQuiz 3.0 is... well... the third version of the BatQuiz application.
 
 First version was a small application I made in October 2017 to practice jQuery. It still runs at <a href="http://batquiz.dariusz-mazur.pl/" target="_blank">batquiz.dariusz-mazur.pl</a> (with minor content updates), but.... well, such were my beginnings.
 
@@ -23,15 +23,15 @@ To be honest, BatQuiz was my first “real” application and was sentimental to
 
 ## 🚀 Quick start
 
-1.  **Requirement**
+1. **Requirement**
 
-- `npm` (v10.2.4 or newer),
-- `react` (18.3.1 or never),
-- `react-router-dom` (6.26.2 or never),
-- `typescript` (v5.6.2 or newer),
-- `vite` (v5.4.1 or newer)
+     - `npm` (v10.2.4 or newer),
+     - `react` (18.3.1 or never),
+     - `react-router-dom` (6.26.2 or never),
+     - `typescript` (v5.6.2 or newer),
+     - `vite` (v5.4.1 or newer)
 
-2.  **Installation**
+2. **Installation**
 
     To install application navigate to app's directory and use npm command
 
@@ -40,7 +40,7 @@ To be honest, BatQuiz was my first “real” application and was sentimental to
     npm install
     ```
 
-3.  **Developer mode**
+3. **Developer mode**
 
     You can run app in developer mode by using command
 
@@ -57,7 +57,7 @@ To be honest, BatQuiz was my first “real” application and was sentimental to
     ```bash
     npm run buil
     ```
-    You will find producction files in `dist` directory.
+    You will find production files in `dist` directory.
 
 5. Environmental variables
 
