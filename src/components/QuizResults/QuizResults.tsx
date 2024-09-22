@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 import { QuizContext } from '../../lib/AppProvides.tsx';
 import { theme } from '../../lib/theme.tsx';
 import { INewPlayerProps } from '../../lib/types.ts';
+import { MAX_COUNT } from '../../lib/vars.ts';
 
 const QuizResults = () => {
   const { score, start, end, quizLevel, player } = useContext(QuizContext);
@@ -65,7 +66,7 @@ const QuizResults = () => {
         }
       });
     }
-  }, [token]);
+  }, [token]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClose = () => {
     setIsError(false);
@@ -89,7 +90,7 @@ const QuizResults = () => {
           >
             {finalScore} punktów
           </Typography>{' '}
-          ({Math.round((score / 10) * 100)}%) na poziomie {getCurrentLevel()}.
+          ({Math.round((score / MAX_COUNT) * 100)}%) na poziomie {getCurrentLevel()}.
         </Typography>
         <Typography variant='body2' component='div'>
           {playerRank.rankDescription}

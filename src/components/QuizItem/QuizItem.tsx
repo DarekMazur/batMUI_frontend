@@ -14,10 +14,24 @@ import { useParams } from 'react-router-dom';
 import { IQuestionTypes } from '../../lib/types.ts';
 import Error from '../Error/Error.tsx';
 import { randomizeList } from '../../lib/helpers.ts';
+import { MAX_COUNT } from '../../lib/vars.ts';
 
 const QuizItem = () => {
   const { score, setResults, setEndTime, finishQuiz } = useContext(QuizContext);
   const { quizId } = useParams();
+
+  const initQuestion = {
+    id: '',
+    question: '',
+    ans1: '',
+    ans2: '',
+    ans3: '',
+    ans4: '',
+    check: '',
+    isBonus: false,
+    level: '',
+    img: ''
+  };
 
   const [active, setActive] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState<number | 'bonus'>(0);
@@ -25,13 +39,22 @@ const QuizItem = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
   const [data, setData] = useState<IQuestionTypes[]>([]);
+  const [questionsList, setQuestionsList] = useState<IQuestionTypes[]>([]);
+  const [bonusQuestion, setBonusQuestion] = useState<IQuestionTypes>(initQuestion);
 
-  const questionsList =
-    data &&
-    data.filter((question) => question.level?.toLowerCase() === quizId && !question.isBonus);
+  useEffect(() => {
+    if (data.length > 0) {
+      setQuestionsList(
+        randomizeList(
+          data.filter((question) => !question.isBonus),
+          MAX_COUNT
+        )
+      );
+      setBonusQuestion(data.filter((question) => question.isBonus)[0]);
 
-  const bonusQuestion =
-    data && data.filter((question) => question.level?.toLowerCase() === quizId && question.isBonus);
+      setIsLoading(false);
+    }
+  }, [data]);
 
   useEffect(() => {
     try {
@@ -44,8 +67,9 @@ const QuizItem = () => {
           return response.json();
         })
         .then((data) => {
-          setData(randomizeList(data, data.length));
-          setIsLoading(false);
+          setData(
+            data.filter((question: IQuestionTypes) => question.level?.toLowerCase() === quizId)
+          );
         });
     } catch (err) {
       setIsError(true);
@@ -54,8 +78,8 @@ const QuizItem = () => {
   }, []);
 
   useEffect(() => {
-    if (currentQuestion === 9) {
-      if (score === 10) {
+    if (currentQuestion === MAX_COUNT - 1) {
+      if (score === MAX_COUNT) {
         setCurrentQuestion('bonus');
         setEndTime(Date.now());
       } else {
@@ -71,16 +95,6 @@ const QuizItem = () => {
     setActive(true);
   }, [currentQuestion]);
 
-  const answers: number[] = [];
-
-  do {
-    const random = Math.floor(Math.random() * 4 + 1);
-
-    if (!answers.includes(random)) {
-      answers.push(random);
-    }
-  } while (answers.length < 4);
-
   const handleChoseAnswer = (e: MouseEvent<HTMLDivElement>): void => {
     const event = e.target as HTMLButtonElement;
     setActive(false);
@@ -88,23 +102,23 @@ const QuizItem = () => {
     if (
       event.textContent ===
         questionsList[currentQuestion as number]?.check.replaceAll('&#39;', "'") ||
-      event.textContent === bonusQuestion[0].check.replaceAll('&#39;', "'")
+      event.textContent === bonusQuestion.check.replaceAll('&#39;', "'")
     ) {
       setResults(score + 1);
     }
 
-    if ((currentQuestion as number) < 9) {
+    if ((currentQuestion as number) < MAX_COUNT - 1) {
       setCurrentQuestion((currentQuestion as number) + 1);
     }
 
-    if (currentQuestion === 9 || currentQuestion === 'bonus') {
+    if (currentQuestion === MAX_COUNT - 1 || currentQuestion === 'bonus') {
       setCheckResults((prevState) => !prevState);
     }
   };
 
   return (
     <>
-      {!isError && data ? (
+      {!isError ? (
         <Card sx={{ width: 500, my: 2 }}>
           {isLoading ? (
             <Skeleton variant='rectangular' width={500} height={200} />
@@ -112,9 +126,7 @@ const QuizItem = () => {
             <CardMedia
               sx={{ height: 200 }}
               image={
-                currentQuestion !== 'bonus'
-                  ? questionsList[currentQuestion].img
-                  : bonusQuestion[0].img
+                currentQuestion !== 'bonus' ? questionsList[currentQuestion].img : bonusQuestion.img
               }
               title='quiz question cover'
             />
@@ -133,7 +145,7 @@ const QuizItem = () => {
                 <Typography gutterBottom variant='h5' component='h3' align='center'>
                   {currentQuestion !== 'bonus'
                     ? questionsList[currentQuestion].question.replaceAll('&#39;', "'")
-                    : bonusQuestion[0].question.replaceAll('&#39;', "'")}
+                    : bonusQuestion.question.replaceAll('&#39;', "'")}
                 </Typography>
                 <Typography variant='body2' component='div'>
                   <List sx={{ width: '100%' }} component='nav'>
@@ -145,7 +157,7 @@ const QuizItem = () => {
                         key={
                           currentQuestion !== 'bonus'
                             ? questionsList[currentQuestion].id + option
-                            : bonusQuestion[0].id + option
+                            : bonusQuestion.id + option
                         }
                       >
                         <ListItemText
@@ -154,7 +166,7 @@ const QuizItem = () => {
                               ? questionsList[currentQuestion][
                                   option as 'ans1' | 'ans2' | 'ans3' | 'ans4'
                                 ].replaceAll('&#39;', "'")
-                              : bonusQuestion[0][
+                              : bonusQuestion[
                                   option as 'ans1' | 'ans2' | 'ans3' | 'ans4'
                                 ].replaceAll('&#39;', "'")
                           }
