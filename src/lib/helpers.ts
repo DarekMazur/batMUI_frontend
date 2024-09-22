@@ -49,7 +49,7 @@ export const randomizeList = (list: Array<any>, limit: number) => {
   const randomized: any[] = [];
 
   do {
-    const random = Math.floor(Math.random() * limit);
+    const random = Math.floor(Math.random() * list.length);
 
     if (!randomized.includes(list[random])) {
       randomized.push(list[random]);
