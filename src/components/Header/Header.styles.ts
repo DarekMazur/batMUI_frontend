@@ -5,7 +5,10 @@ import { theme } from '../../lib/theme.tsx';
 
 export const StyledNavLink = styled(NavLink)(({ theme }) => ({
   color: theme.palette.secondary.main,
+  width: 40,
   '&.active': {
+    height: 40,
+    width: 40,
     color: theme.palette.secondary.contrastText,
     borderBottom: `0.2rem solid ${theme.palette.secondary.contrastText}`
   }
