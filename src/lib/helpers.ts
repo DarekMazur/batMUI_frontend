@@ -28,7 +28,7 @@ export const calculateFinalScore = (
       break;
   }
 
-  const scoreRaw = score / Math.log(timePerQuestion);
+  const scoreRaw = score / Math.log(timePerQuestion + 2);
 
   return Math.round(scoreRaw * levelParam * 100);
 };
