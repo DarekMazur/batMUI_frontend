@@ -1,6 +1,6 @@
 import { Container, Paper, Typography } from '@mui/material';
 import { theme } from '../../lib/theme.tsx';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
 import { ReactNode } from 'react';
 
 const Error = ({ children }: { children: ReactNode }) => {
@@ -18,7 +18,7 @@ const Error = ({ children }: { children: ReactNode }) => {
         }}
       >
         <Typography color={theme.palette.error.main}>{children}</Typography>
-        <ErrorOutlineIcon sx={{ color: theme.palette.error.main, fontSize: 100 }} />
+        <ErrorOutlineOutlinedIcon sx={{ color: theme.palette.error.main, fontSize: 100 }} />
       </Paper>
     </Container>
   );
