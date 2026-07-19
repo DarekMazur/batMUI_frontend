@@ -54,7 +54,7 @@ export const theme = createTheme({
     fontSize: 16,
     h1: {
       fontFamily: '"Russo One", sans-serif;',
-      fontSize: '2rem',
+      fontSize: '3rem',
       lineHeight: '1.5',
       textAlign: 'center'
     },
